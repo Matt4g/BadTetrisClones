@@ -260,3 +260,4 @@ document.addEventListener('keydown', event => {
 playerReset();
 updateScore();
 update();
+//Test
