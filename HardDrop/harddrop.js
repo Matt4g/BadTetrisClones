@@ -247,7 +247,7 @@ function update(time = 0) {
     requestAnimationFrame(update);
     
     if(player.score === 0) {
-        dropInterval = 400;
+        dropInterval = 10;
     }
     else if(player.score >= 600) {
         dropInterval = 200;

@@ -426,3 +426,5 @@ update();
 //add random hard drop (done)
 //Inputs randomly invert (done)
 //Pieces go different speeds (wip)
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+//More valuable piece falls faster
