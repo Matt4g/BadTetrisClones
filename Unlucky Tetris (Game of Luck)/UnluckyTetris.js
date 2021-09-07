@@ -207,9 +207,10 @@ function rotate(matrix, dir) {
     }
 
 }
+let randomSpeed = (Math.ceil(Math.random() * 400))
 
 let dropCounter = 0;
-let dropInterval= 400;
+let dropInterval = randomSpeed;
 
 let randomTime = (Math.ceil(Math.random() * 10000));
 
@@ -303,24 +304,7 @@ function update(time = 0) {
     }
 
 
-    if(player.score === 0) {
-        dropInterval = 400;
-    }
-    else if(player.score >= 600) {
-        dropInterval = 200;
-    }
-    else if(player.score >= 900) {
-        dropInterval = 150;
-    }
-    else if(player.score >= 1200) {
-        dropInterval = 100;
-    }
-    else if(player.score >= 1500 ) {
-        dropInterval = 50;
-    }
-    else if(player.score >= 2500) {
-        dropInterval = 25;
-    }
+    
 
     draw();
     requestAnimationFrame(update);
@@ -329,7 +313,11 @@ function update(time = 0) {
 function updateScore() {
     document.getElementById('score').innerText = player.score;
 }
-    
+
+
+
+
+
 let randomNumber = (Math.ceil(Math.random() * 100))
     if (randomNumber === 47)
     {
@@ -367,6 +355,7 @@ const player = {
     matrix: null,
     score: 0,
 }
+
 
 
 let playerInput = (Math.ceil(Math.random() * 100))
