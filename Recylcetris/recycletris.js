@@ -282,3 +282,5 @@ document.addEventListener('keydown', event => {
 playerReset();
 updateScore();
 update();
+
+//Pieces repeat until line is cleared

@@ -207,10 +207,10 @@ function rotate(matrix, dir) {
     }
 
 }
-let randomSpeed = (Math.ceil(Math.random() * 400))
+
 
 let dropCounter = 0;
-let dropInterval = randomSpeed;
+let dropInterval = 400;
 
 let randomTime = (Math.ceil(Math.random() * 10000));
 
@@ -220,6 +220,12 @@ function update(time = 0) {
     lastTime = time;
   
     dropCounter += deltaTime;
+    let randomSpeed = (Math.ceil(Math.random() * 1000))
+    if (randomSpeed != dropInterval){
+        dropInterval = randomSpeed
+    }
+
+
     if (dropCounter > dropInterval) {
         playerDrop();
         let randomNumber = (Math.ceil(Math.random() * 100))
@@ -414,6 +420,4 @@ update();
 //add randomly changing colors (done)
 //add random hard drop (done)
 //Inputs randomly invert (done)
-//Pieces go different speeds (wip)
-//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-//More valuable piece falls faster
+//Pieces change speeds mid fall (done) 
