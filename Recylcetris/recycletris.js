@@ -138,18 +138,6 @@ function playerDrop() {
         dropCounter = 0
 }
 
-function playerDropHard() {
-    while (!collide(arena, player)) {
-        player.pos.y++;
-    }
-    player.pos.y--;
-    merge(arena, player);
-    playerReset();
-    arenaSweep();
-    updateScore();
-    dropCounter = 0;
-}
-
 function playerMove(dir) {
     player.pos.x += dir;
     if (collide(arena, player)) {
@@ -157,9 +145,11 @@ function playerMove(dir) {
     }
 }
 
+
+
 function playerReset() {
-    const pieces = 'ILJOTSZ'
-    player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+const pieces = 'ILJOTSZ'
+player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
     
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
@@ -169,6 +159,10 @@ function playerReset() {
         player.score = 0;
         updateScore();
     }
+}
+function NextBox() {
+createPiece(pieces[1])
+
 }
 
 function playerRotate(dir) {
@@ -208,11 +202,9 @@ function rotate(matrix, dir) {
 
 }
 
-
 let dropCounter = 0;
 let dropInterval = 400;
 
-let randomTime = (Math.ceil(Math.random() * 10000));
 
 let lastTime = 0;
 function update(time = 0) {
@@ -220,139 +212,47 @@ function update(time = 0) {
     lastTime = time;
   
     dropCounter += deltaTime;
-    let randomSpeed = (Math.ceil(Math.random() * 1000))
-    if (randomSpeed != dropInterval){
-        dropInterval = randomSpeed
-    }
-
-
     if (dropCounter > dropInterval) {
         playerDrop();
-        let randomNumber = (Math.ceil(Math.random() * 100))
-        if (randomNumber === 64) {
-            playerRotate(1)
-        }
-        else if (randomNumber === 27) {
-            playerRotate(1)
-        }
-    else if (randomNumber === 47)
-    {
- colors = [
-    
-    null, 
-    'red',
-    'green', 
-    'cyan', 
-    'orange', 
-    'blue', 
-    'yellow', 
-    'purple',
-];
     }
-
-    else if (randomNumber === 12)
-    {
-        colors = [
-            null, 
-            'brown',
-            'red', 
-            'cyan', 
-            'beige', 
-            'orange', 
-            'yellow', 
-            'purple',
-        ];
-    }
-
-    else if (randomNumber === 81)
-    {
-        colors = [
-            null, 
-            'purple',
-            'yellow', 
-            'blue', 
-            'orange', 
-            'cyan', 
-            'green', 
-            'red',
-        ];
-    }
-	
-	else if (randomNumber === 57)
-	{
-			colors = [
-            null, 
-            'black',
-            'black', 
-            'black', 
-            'black', 
-            'black', 
-            'black', 
-            'black',
-			];
-            setTimeout(() => { colors = [
-    
-                null, 
-                'red',
-                'green', 
-                'cyan', 
-                'orange', 
-                'blue', 
-                'yellow', 
-                'purple',
-            ];}, randomTime);
-	}
-		
-    else if (randomNumber === 17)
-    {  
-        playerDropHard(1)
-    }
-    }
-
-
-    
 
     draw();
     requestAnimationFrame(update);
+    
+    if(player.score === 0) {
+        dropInterval = 400;
+    }
+    else if(player.score >= 600) {
+        dropInterval = 200;
+    }
+    else if(player.score >= 900) {
+        dropInterval = 150;
+    }
+    else if(player.score >= 1200) {
+        dropInterval = 100;
+    }
+    else if(player.score >= 1500 ) {
+        dropInterval = 50;
+    }
+    else if(player.score >= 2500) {
+        dropInterval = 25;
+    }
 }
 
 function updateScore() {
     document.getElementById('score').innerText = player.score;
 }
 
-
-
-
-
-let randomNumber = (Math.ceil(Math.random() * 100))
-    if (randomNumber === 47)
-    {
- colors = [
+const colors = [
     null, 
-    'red',
-    'green', 
-    'cyan', 
+    'purple',
+    'yellow', 
     'orange', 
     'blue', 
-    'yellow', 
-    'purple',
+    'cyan', 
+    'green', 
+    'red',
 ];
-    }
-    else
-    {
-        colors = [
-            null, 
-    'purple',
-    'yellow', 
-    'blue', 
-    'orange', 
-    'cyan', 
-    'green', 
-    'red',
-        ];
-    }
-
-
 
 const arena = createMatrix(12, 20);
 
@@ -362,43 +262,15 @@ const player = {
     score: 0,
 }
 
-
-
-let playerInput = (Math.ceil(Math.random() * 100))
-
 document.addEventListener('keydown', event => {
-    if(playerInput >= 63 && playerInput <= 65) 
-    {
-        if (event.keyCode === 37) {
-            playerMove(1);
-        }
-        if (event.keyCode === 39) {
-            playerMove(-1);
-        }
-        
-        if (event.keyCode === 90) {
-            playerRotate(-1);
-        }
-        if (event.keyCode === 38) {
-            playerRotate(-1);
-        }
-        if (event.keyCode === 32){
-            playerDrop();
-        }
-        if (event.keyCode === 40){
-            playerDropHard(1);
-        }
-    }
-    else
-    {
     if (event.keyCode === 37) {
         playerMove(-1);
     }
     if (event.keyCode === 39) {
-        playerMove(1);
+        playerMove(1)
     }
     if (event.keyCode === 40) {
-        playerDrop(1);
+        playerDrop();
     }
     if (event.keyCode === 90) {
         playerRotate(1);
@@ -406,18 +278,9 @@ document.addEventListener('keydown', event => {
     if (event.keyCode === 38) {
         playerRotate(1);
     }
-    if (event.keyCode === 32){
-        playerDropHard(1);
-    }
-    
-}
 })
-
 playerReset();
 updateScore();
 update();
-//add random disapearing pieces (done)
-//add randomly changing colors (done)
-//add random hard drop (done)
-//Inputs randomly invert (done)
-//Pieces change speeds mid fall (done) 
+
+//Pieces repeat until line is cleared

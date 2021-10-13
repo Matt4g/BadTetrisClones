@@ -306,9 +306,7 @@ document.addEventListener('keydown', event => {
     if (event.keyCode === 38) {
         playerDrop()
     }
-    if (event.keyCode === 32){
-        playerDropHard(1);
-    }
+    
 })
 playerReset();
 updateScore();
