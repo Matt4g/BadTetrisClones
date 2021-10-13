@@ -1,9 +1,7 @@
 const canvas = document.getElementById('tetris');
 const context = canvas.getContext('2d');
-const canvas2 = document.getElementById('Next')
-const context2 = canvas2.getContext('2d')
+
 context.scale(20, 20);
-context2.scale(20, 20);
 
 function arenaSweep() {
     let rowCount = 1;
@@ -42,14 +40,6 @@ function createMatrix(w, h) {
     const matrix = [];
     while (h--) {
         matrix.push(new Array(w).fill(0));
-    }
-    return matrix
-}
-
-function createMatrix2(w, h) {
-    const matrix2 = [];
-    while (h--) {
-        matrix2.push(new Array(w).fill(0));
     }
     return matrix
 }
@@ -101,16 +91,12 @@ function createPiece(type) {
            [0, 0, 0],
         ];
      }
-    
 }
 
 
 function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
-
-    context2.fillStyle = '#000';
-    context2.fillRect(0, 0, canvas2.width, canvas2.height);
 
     drawMatrix(arena, {x: 0, y: 0});
     drawMatrix(player.matrix, player.pos);
@@ -150,18 +136,6 @@ function playerDrop() {
         }
         dropCounter = 0
 }
-function playerDropHard() {
-    while (!collide(arena, player)) {
-        player.pos.y++;
-    }
-    player.pos.y--;
-    merge(arena, player);
-    playerReset();
-    arenaSweep();
-    updateScore();
-    dropCounter = 0;
-}
-
 
 function playerMove(dir) {
     player.pos.x += dir;
@@ -170,12 +144,9 @@ function playerMove(dir) {
     }
 }
 
-
-
 function playerReset() {
-const pieces = 'ILJOTSZ'
-player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
-    
+    const pieces = 'ILJOTSZ'
+    player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
                     (player.matrix[0].length / 2 | 0);
@@ -184,10 +155,6 @@ player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
         player.score = 0;
         updateScore();
     }
-}
-function NextBox() {
-createPiece(pieces[1])
-    context2.fillStyle = colors[value];
 }
 
 function playerRotate(dir) {
@@ -204,8 +171,6 @@ function playerRotate(dir) {
         }
     }
 }
-
-
 
 function rotate(matrix, dir) {
     for (let y = 0; y < matrix.length; ++y) {
@@ -230,8 +195,7 @@ function rotate(matrix, dir) {
 }
 
 let dropCounter = 0;
-let dropInterval = 400;
-
+let dropInterval= 400;
 
 let lastTime = 0;
 function update(time = 0) {
@@ -245,25 +209,6 @@ function update(time = 0) {
 
     draw();
     requestAnimationFrame(update);
-    
-    if(player.score === 0) {
-        dropInterval = 400;
-    }
-    else if(player.score >= 600) {
-        dropInterval = 200;
-    }
-    else if(player.score >= 900) {
-        dropInterval = 150;
-    }
-    else if(player.score >= 1200) {
-        dropInterval = 100;
-    }
-    else if(player.score >= 1500 ) {
-        dropInterval = 50;
-    }
-    else if(player.score >= 2500) {
-        dropInterval = 25;
-    }
 }
 
 function updateScore() {
@@ -274,15 +219,14 @@ const colors = [
     null, 
     'purple',
     'yellow', 
-    'orange', 
     'blue', 
+    'orange', 
     'cyan', 
     'green', 
     'red',
 ];
 
 const arena = createMatrix(12, 20);
-const arena2 = createMatrix(4, 4);
 
 const player = {
     pos: {x: 0, y: 0},
@@ -300,16 +244,11 @@ document.addEventListener('keydown', event => {
     if (event.keyCode === 40) {
         playerDrop();
     }
-    if (event.keyCode === 90) {
-        playerRotate(1);
-    }
     if (event.keyCode === 38) {
         playerRotate(1);
     }
-    if (event.keyCode === 32){
-        playerDropHard(1);
-    }
 })
+
 playerReset();
 updateScore();
 update();
