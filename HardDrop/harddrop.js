@@ -264,6 +264,7 @@ function update(time = 0) {
     else if(player.score >= 2500) {
         dropInterval = 25;
     }
+    console.log(dropInterval)
 }
 
 function updateScore() {
