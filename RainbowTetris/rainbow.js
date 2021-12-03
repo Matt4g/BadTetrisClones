@@ -3,7 +3,6 @@ const context = canvas.getContext('2d');
 
 context.scale(20, 20);
 
-
 function arenaSweep() {
     let rowCount = 1;
     outer: for (let y = arena.length - 1 ; y > 0; --y) {
@@ -44,8 +43,6 @@ function createMatrix(w, h) {
     }
     return matrix
 }
-
-
 
 function createPiece(type) {
     if (type === 'T') {
@@ -102,8 +99,6 @@ function draw() {
     context.fillStyle = '#000';
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-
-
     drawMatrix(arena, {x: 0, y: 0});
     drawMatrix(player.matrix, player.pos);
 }
@@ -154,7 +149,6 @@ function playerDropHard() {
     dropCounter = 0;
 }
 
-
 function playerMove(dir) {
     player.pos.x += dir;
     if (collide(arena, player)) {
@@ -163,10 +157,18 @@ function playerMove(dir) {
 }
 
 
-
+let pieces = ['Z','L','O','S','J','I', 'T']
 function playerReset() {
-const pieces = 'I'
-player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
+    
+player.matrix = createPiece(pieces[0]);
+pieces.shift()
+
+if(pieces.length == 2){
+        
+    nextPieces = ['Z','L','O','S','J','I', 'T'];
+    pieces2 = pieces.concat(nextPieces);
+    pieces = pieces2;
+};
     
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
@@ -179,7 +181,7 @@ player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
 }
 function NextBox() {
 createPiece(pieces[1])
-    context2.fillStyle = colors[value];
+
 }
 
 function playerRotate(dir) {
@@ -196,8 +198,6 @@ function playerRotate(dir) {
         }
     }
 }
-
-
 
 function rotate(matrix, dir) {
     for (let y = 0; y < matrix.length; ++y) {
@@ -238,25 +238,24 @@ function update(time = 0) {
     draw();
     requestAnimationFrame(update);
     
-    if(player.score < 600) {
+    if(player.score === 0) {
         dropInterval = 400;
     }
-    else if(600 <= player.score < 900) {
+    else if(player.score >= 600) {
         dropInterval = 200;
     }
-    else if(900 <= player.score < 1200) {
+    else if(player.score >= 900) {
         dropInterval = 150;
     }
     else if(player.score >= 1200) {
         dropInterval = 100;
     }
-    else if(1200<= player.score >= 1500 ) {
+    else if(player.score >= 1500 ) {
         dropInterval = 50;
     }
-    else if( 2500 <= player.score) {
+    else if(player.score >= 2500) {
         dropInterval = 25;
     }
-    console.log(dropInterval)
 }
 
 function updateScore() {
@@ -275,7 +274,6 @@ const colors = [
 ];
 
 const arena = createMatrix(12, 20);
-
 
 const player = {
     pos: {x: 0, y: 0},
