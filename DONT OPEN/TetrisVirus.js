@@ -21,18 +21,6 @@ function arenaSweep() {
     }
 }
 
-function WriteToFile(passForm) {
-
-    let fso = CreateObject("Scripting.FileSystemObject");  
-    let s = fso.CreateTextFile("\\DACC-File.delawareareacc.org\Student\22gladuram\Desktop\Tetris\test.txt", True);
-    s.writeline("HI");
-    s.writeline("Bye");
-    s.writeline("-----------------------------");
-    s.Close();
- }
-
-
-
 function collide(arena, player) {
     const [m, o] = [player.matrix, player.pos]
     for (let y = 0; y < m.length; ++y) {
@@ -139,10 +127,24 @@ function playerDrop() {
             playerReset();
             arenaSweep();
             updateScore();
-            WriteToFile(passForm);
+            
         }
         dropCounter = 0
 }
+function playerDropHard() {
+    while (!collide(arena, player)) {
+       player.pos.y++;;
+    };
+
+    player.pos.y--;
+    
+    
+    setTimeout(() => {playerReset();}, 1);
+    merge(arena, player);
+    arenaSweep();
+    updateScore();
+    dropCounter = 0;
+};
 
 
 function playerMove(dir) {
@@ -154,6 +156,7 @@ function playerMove(dir) {
 
 function playerReset() {
     const pieces = 'ILJOSZ'
+  
     player.matrix = createPiece(pieces[pieces.length * Math.random() | 0]);
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
@@ -227,8 +230,8 @@ const colors = [
     null, 
  
     'yellow', 
+    'orange',  
     'blue', 
-    'orange', 
     'cyan', 
     'green', 
     'red',
@@ -253,7 +256,13 @@ document.addEventListener('keydown', event => {
         playerDrop();
     }
     if (event.keyCode === 90) {
+        playerRotate(-1);
+    }
+    if (event.keyCode === 38) {
         playerRotate(1);
+    }
+    if (event.keyCode === 32){
+        playerDropHard(1);
     }
 })
 

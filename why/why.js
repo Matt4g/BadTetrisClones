@@ -211,7 +211,7 @@ function playerMove(dir) {
 const pieces = ['P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P','P', 'P', 'P','P','P','P','P','P','P','P', 'P', 'P', 'P','P','P','P','P','P','P','P']
 function playerReset() {
     player.matrix = createPiece(pieces[0]);
-    pieces.shift();
+    
     player.pos.y = 0;
     player.pos.x = (arena[0].length / 2 | 0) -
                     (player.matrix[0].length / 2 | 0);
